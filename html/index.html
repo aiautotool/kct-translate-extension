@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="KCT Translate - extension Chrome giúp dịch nhanh văn bản được chọn, phát âm, lưu từ vựng, lịch sử tra cứu và AI Explain cho người Việt học ngoại ngữ.">
+  <title>KCT Translate - Extension dịch nhanh cho người Việt</title>
+  <link rel="icon" href="assets/icon-128.png">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #10211d;
+      --muted: #5f6c67;
+      --line: #dce6e1;
+      --soft: #f5faf7;
+      --mint: #0f8a5f;
+      --blue: #2563eb;
+      --amber: #f6b73c;
+      --white: #ffffff;
+      --shadow: 0 20px 55px rgba(16, 33, 29, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: #ffffff;
+      line-height: 1.55;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(220, 230, 225, 0.85);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      width: min(1180px, calc(100% - 32px));
+      min-height: 72px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #34443f;
+      font-weight: 720;
+    }
+
+    .nav-links a {
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    .nav-links a:hover {
+      background: var(--soft);
+    }
+
+    .hero {
+      min-height: 78svh;
+      display: grid;
+      align-items: end;
+      background:
+        linear-gradient(90deg, rgba(9, 24, 20, 0.86), rgba(9, 24, 20, 0.54) 44%, rgba(9, 24, 20, 0.12)),
+        url("assets/promo-large-1400x560.png") center / cover no-repeat;
+      color: var(--white);
+    }
+
+    .hero-inner {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: clamp(80px, 13vh, 150px) 0 clamp(52px, 9vh, 92px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 32px;
+      padding: 5px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.94);
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .hero h1 {
+      max-width: 720px;
+      margin: 18px 0 0;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 22px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: clamp(17px, 2.1vw, 22px);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      font-weight: 820;
+      line-height: 1.1;
+    }
+
+    .button.primary {
+      background: var(--white);
+      color: var(--ink);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
+    }
+
+    .button.secondary {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.42);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .section {
+      padding: clamp(56px, 8vw, 92px) 0;
+    }
+
+    .section.alt {
+      background: var(--soft);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .section-heading p,
+    .feature p,
+    .privacy p,
+    .install p {
+      color: var(--muted);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 10px 0 0;
+    }
+
+    .preview {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .preview img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .feature {
+      min-height: 190px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .feature .icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      background: #e6f7ef;
+      color: var(--mint);
+      font-size: 22px;
+      font-weight: 850;
+    }
+
+    .feature:nth-child(2) .icon {
+      background: #eaf1ff;
+      color: var(--blue);
+    }
+
+    .feature:nth-child(3) .icon {
+      background: #fff3d6;
+      color: #a56700;
+    }
+
+    .feature:nth-child(4) .icon {
+      background: #edf2f7;
+      color: #334155;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .gallery-main,
+    .gallery-side {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 14px 38px rgba(16, 33, 29, 0.08);
+    }
+
+    .gallery-main img,
+    .gallery-side img {
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-side {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 0;
+    }
+
+    .gallery-side img + img {
+      border-top: 1px solid var(--line);
+    }
+
+    .install {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .steps {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      counter-reset: step;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 850;
+    }
+
+    .privacy {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .privacy article {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .final-cta {
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(16, 138, 95, 0.96), rgba(37, 99, 235, 0.94)),
+        #0f8a5f;
+    }
+
+    .final-cta .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .final-cta p {
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .site-footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        min-height: 76svh;
+        background-position: 58% center;
+      }
+
+      .feature-grid,
+      .privacy {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gallery,
+      .install {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero {
+        min-height: 72svh;
+        background:
+          linear-gradient(180deg, rgba(9, 24, 20, 0.78), rgba(9, 24, 20, 0.58)),
+          url("assets/promo-large-1400x560.png") center / cover no-repeat;
+      }
+
+      .hero-inner,
+      .wrap,
+      .footer-inner {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero h1 {
+        font-size: clamp(38px, 16vw, 58px);
+      }
+
+      .actions,
+      .final-cta .wrap {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .feature-grid,
+      .privacy {
+        grid-template-columns: 1fr;
+      }
+
+      .feature {
+        min-height: auto;
+      }
+
+      .steps li {
+        grid-template-columns: 38px 1fr;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Điều hướng chính">
+      <a class="brand" href="#top" aria-label="KCT Translate">
+        <img src="assets/icon-128.png" alt="">
+        <span>KCT Translate</span>
+      </a>
+      <div class="nav-links" aria-label="Liên kết trang">
+        <a href="#features">Tính năng</a>
+        <a href="#preview">Giao diện</a>
+        <a href="#install">Cài đặt</a>
+        <a href="#privacy">Bảo mật</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="KCT Translate">
+      <div class="hero-inner">
+        <span class="eyebrow">Chrome Extension Manifest V3</span>
+        <h1>KCT Translate</h1>
+        <p>Dịch nhanh văn bản được chọn trên website sang tiếng Việt, phát âm tự nhiên, lưu từ vựng và mở rộng nghĩa bằng AI Explain.</p>
+        <div class="actions" aria-label="Hành động chính">
+          <a class="button primary" href="#install">Cài đặt extension</a>
+          <a class="button secondary" href="#preview">Xem giao diện</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2>Học ngoại ngữ ngay trên trang bạn đang đọc.</h2>
+          <p>Bôi đen một từ, cụm từ hoặc câu để xem bản dịch tức thì. KCT Translate giữ trải nghiệm gọn, nhanh và không làm rối website gốc.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="icon" aria-hidden="true">A</div>
+            <h3>Dịch tức thì</h3>
+            <p>Popup dịch hiện cạnh vùng chọn, tự nhận diện ngôn ngữ đơn giản và dịch về tiếng Việt.</p>
+          </article>
+          <article class="feature">
+            <div class="icon" aria-hidden="true">▶</div>
+            <h3>Phát âm chuẩn</h3>
+            <p>Nghe văn bản gốc hoặc bản dịch với tốc độ chậm, bình thường hoặc nhanh.</p>
+          </article>
+          <article class="feature">
+            <div class="icon" aria-hidden="true">AI</div>
+            <h3>AI Explain</h3>
+            <p>Giải thích nghĩa, ngữ cảnh và cách dùng để hiểu sâu hơn thay vì chỉ xem một bản dịch ngắn.</p>
+          </article>
+          <article class="feature">
+            <div class="icon" aria-hidden="true">★</div>
+            <h3>Lưu và ôn tập</h3>
+            <p>Lưu từ vựng, đánh dấu favorite, xem lại lịch sử tra cứu và export dữ liệu JSON.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="preview" class="section alt">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2>Giao diện sạch, tập trung vào thao tác đọc.</h2>
+          <p>Popup nổi dùng Shadow DOM để hạn chế xung đột CSS, còn trang popup extension giúp quản lý lịch sử, từ đã lưu và favorite.</p>
+        </div>
+        <div class="gallery" aria-label="Ảnh giới thiệu giao diện KCT Translate">
+          <figure class="gallery-main">
+            <img src="assets/screenshot-1.png" alt="Tổng quan các tính năng của KCT Translate">
+          </figure>
+          <div class="gallery-side">
+            <img src="assets/screenshot-3.png" alt="AI Explain trong KCT Translate">
+            <img src="assets/screenshot-5.png" alt="Lịch sử tra cứu trong KCT Translate">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="install" class="section">
+      <div class="wrap install">
+        <div class="section-heading">
+          <h2>Cài đặt bản extension local.</h2>
+          <p>Bản hiện tại có thể load trực tiếp vào Chrome ở chế độ Developer. Sau khi cài, bạn chỉ cần mở một website bất kỳ và bôi đen văn bản để dùng.</p>
+        </div>
+        <ol class="steps">
+          <li>Mở Chrome và truy cập <strong>chrome://extensions</strong>.</li>
+          <li>Bật <strong>Developer mode</strong> ở góc phải phía trên.</li>
+          <li>Chọn <strong>Load unpacked</strong> rồi trỏ tới thư mục <strong>kct-translate-extension</strong>.</li>
+          <li>Bôi đen từ hoặc câu trên website để hiện popup dịch, hoặc dùng phím tắt <strong>Ctrl/Command + Shift + T</strong>.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="privacy" class="section alt">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2>Thiết kế cho dữ liệu học tập cá nhân.</h2>
+          <p>KCT Translate ưu tiên lưu dữ liệu ngay trên trình duyệt của bạn và chỉ gọi API khi cần dịch hoặc giải thích AI.</p>
+        </div>
+        <div class="privacy">
+          <article>
+            <h3>Lưu local</h3>
+            <p>History, vocabulary, favorite và cache bản dịch được lưu bằng chrome.storage.local.</p>
+          </article>
+          <article>
+            <h3>Không theo dõi</h3>
+            <p>Extension chỉ đọc nội dung bạn chọn để dịch, không cần backend theo dõi hành vi duyệt web.</p>
+          </article>
+          <article>
+            <h3>API key do bạn quản lý</h3>
+            <p>OpenAI API Key cho AI Explain được nhập trong trang Settings và lưu ở trình duyệt.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-cta">
+      <div class="wrap">
+        <div>
+          <h2>Sẵn sàng dịch nhanh hơn khi đọc web.</h2>
+          <p>Cài KCT Translate, chọn văn bản và biến mỗi trang web thành một bài học ngoại ngữ nhỏ.</p>
+        </div>
+        <a class="button primary" href="#install">Xem hướng dẫn cài đặt</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© 2026 KCT Translate</span>
+      <span>Version 1.0.3 · Chrome Extension Manifest V3</span>
+    </div>
+  </footer>
+</body>
+</html>

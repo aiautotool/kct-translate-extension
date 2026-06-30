@@ -1,0 +1,10 @@
+name = "kct-translate"
+account_id = "2de679b502c90e736abad750fd0415f7"
+compatibility_date = "2026-06-30"
+
+routes = [
+  { pattern = "translate.aiautotool.com", custom_domain = true }
+]
+
+[assets]
+directory = "."

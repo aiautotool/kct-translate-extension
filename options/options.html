@@ -1,0 +1,17 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KCT Translate Settings</title><link rel="stylesheet" href="options.css"></head><body>
+<div class="page"><header><h1>KCT Translate Settings</h1><p>Cấu hình dịch, AI Explain và dữ liệu học từ vựng.</p></header>
+<form id="form" class="card">
+<label>Provider dịch<select id="provider"><option value="google">Google Translate unofficial</option><option value="mymemory">MyMemory fallback</option></select></label>
+<label>Ngôn ngữ đích<select id="targetLang"><option value="vi">Vietnamese</option><option value="en">English</option></select></label>
+<label class="check"><input type="checkbox" id="enableCache"> Bật cache dịch nhanh</label>
+<label class="check"><input type="checkbox" id="enablePopup"> Bật popup khi bôi chữ</label>
+<label class="check"><input type="checkbox" id="enableDoubleClick"> Bật double click mode</label>
+<label class="check"><input type="checkbox" id="enableAiExplain"> Bật AI Explain</label>
+<label>Tốc độ đọc mặc định<select id="voiceRate"><option value="slow">Chậm</option><option value="normal">Bình thường</option><option value="fast">Nhanh</option></select></label>
+<label>OpenAI API Key<input id="openaiApiKey" type="password" placeholder="sk-..."></label>
+<label>OpenAI Model<input id="openaiModel" placeholder="gpt-4o-mini"></label>
+<button type="submit">Lưu cấu hình</button><span id="status"></span>
+</form>
+<section class="card"><h2>Dữ liệu</h2><p>Export/Import dữ liệu từ vựng và lịch sử.</p><button id="exportBtn">Export JSON</button><input type="file" id="importFile" accept="application/json"><button id="resetBtn" class="danger">Reset toàn bộ dữ liệu</button></section>
+<section class="card"><h2>Roadmap</h2><ul><li>OCR ảnh bằng Tesseract.js.</li><li>PDF reader mode.</li><li>Flashcard + Spaced Repetition.</li><li>Đồng bộ cloud khi đăng nhập.</li></ul></section>
+</div><script type="module" src="options.js"></script></body></html>

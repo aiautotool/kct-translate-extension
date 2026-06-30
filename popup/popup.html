@@ -1,0 +1,15 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KCT Translate</title><link rel="stylesheet" href="popup.css"></head><body>
+<header><div><h1>KCT Translate</h1><p>Dịch nhanh & học từ vựng</p></div><a href="../options/options.html" target="_blank">Settings</a></header>
+<section class="status-card" id="statusCard">
+  <div>
+    <strong id="statusTitle">Đang bật</strong>
+    <span id="statusDesc">Popup dịch sẽ hiện khi bôi đen văn bản.</span>
+  </div>
+  <button id="pauseToggle" class="toggle-btn" type="button">Tạm dừng</button>
+</section>
+<section class="search"><input id="manualText" placeholder="Nhập từ/câu cần dịch..."><button id="translateBtn">Dịch</button></section>
+<section id="manualResult" class="result hidden"></section>
+<nav><button class="tab active" data-tab="history">History</button><button class="tab" data-tab="vocabulary">Saved</button><button class="tab" data-tab="favorite">Favorite</button></nav>
+<main id="list"></main>
+<footer><button id="exportBtn">Export JSON</button><button id="clearHistoryBtn">Clear history</button></footer>
+<script type="module" src="popup.js"></script></body></html>

@@ -1,0 +1,12 @@
+.DS_Store
+.wrangler/
+node_modules/
+dist/
+build/
+*.log
+*.zip
+*.crx
+*.pem
+*.key
+.env
+.env.*
