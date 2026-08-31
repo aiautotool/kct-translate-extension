@@ -3,7 +3,7 @@
 import base64, hashlib, json
 from pathlib import Path
 
-ROOT = Path(__file__).parent / "dataset" / "luma-vi-500k"
+ROOT = Path(__file__).resolve().parent.parent / "dataset" / "luma-vi-500k"
 manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
 for item in manifest["shards"]:
     name = item["file"]
