@@ -1,0 +1,69 @@
+{
+  "name": "Luma-Vietnamese 500K",
+  "version": "1.0.0",
+  "records": 500000,
+  "license": "CC BY 4.0",
+  "generator_seed": 20260831,
+  "shards": [
+    {
+      "file": "luma-vi-00001.jsonl.gz",
+      "records": 50000,
+      "sha256": "955751e16c39aca4c3615aaf940807c47bbdae9dcd0566adc71b2865e5e30180",
+      "bytes": 826901
+    },
+    {
+      "file": "luma-vi-00002.jsonl.gz",
+      "records": 50000,
+      "sha256": "95af0d260bdfd3ff86f6edc8c4ad61801f26c171aefbd888634070be7b45fd47",
+      "bytes": 826963
+    },
+    {
+      "file": "luma-vi-00003.jsonl.gz",
+      "records": 50000,
+      "sha256": "4745ff281a54cfefa250c1175fe50d7769ad7bb5279206d5a6bca2e82883d572",
+      "bytes": 827136
+    },
+    {
+      "file": "luma-vi-00004.jsonl.gz",
+      "records": 50000,
+      "sha256": "ab072fb7417e11e957d216d18c9588ec9bffc6aca42dd54cfaf9e24c33d8f660",
+      "bytes": 826589
+    },
+    {
+      "file": "luma-vi-00005.jsonl.gz",
+      "records": 50000,
+      "sha256": "339bb10ddb97f6aa22d7ca3d68b3ac1a0504e6907a185baa8d9a0aca11fed003",
+      "bytes": 824188
+    },
+    {
+      "file": "luma-vi-00006.jsonl.gz",
+      "records": 50000,
+      "sha256": "ac997c89cec245d9dfb6d2b3ca70efd6a17753ce6d9c1c13b273b2ace9cd39c7",
+      "bytes": 823354
+    },
+    {
+      "file": "luma-vi-00007.jsonl.gz",
+      "records": 50000,
+      "sha256": "27c4741a1fed14b371fe1b58e339bdf5c8e8eeeb26ed1c5780eecb6cb8108e4e",
+      "bytes": 826912
+    },
+    {
+      "file": "luma-vi-00008.jsonl.gz",
+      "records": 50000,
+      "sha256": "b1f20fcd11f5696a550a51f700dfed9e78c5153887323061dcce2518a7412680",
+      "bytes": 826586
+    },
+    {
+      "file": "luma-vi-00009.jsonl.gz",
+      "records": 50000,
+      "sha256": "ed3d49c07447d0aa5795021a964ca5c719c9c0b3b902a0f325fd2f8f5d8ff387",
+      "bytes": 826746
+    },
+    {
+      "file": "luma-vi-00010.jsonl.gz",
+      "records": 50000,
+      "sha256": "95f17a2004695ae78390b8a8e64a0f884585015a304fec5c4f11d3f1eaa08bf6",
+      "bytes": 826257
+    }
+  ]
+}
